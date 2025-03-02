@@ -129,7 +129,7 @@ const AboutSection = () => {
                 whileTap={{ scale: 0.95 }}
               >
                 <Link 
-                  to="/" 
+                  to="/dashboard" 
                   className="inline-flex items-center px-8 py-4 rounded-lg text-primary-700 bg-white font-medium hover:bg-gray-50 transition duration-300 shadow-lg"
                 >
                   Get Started
@@ -148,7 +148,7 @@ const AboutSection = () => {
           >
             <h2 className="text-3xl font-bold text-gray-900 mb-8">Our Approach</h2>
             
-            <div className="grid md:grid-cols-3 gap-8 mb-12">
+            <div className="grid md:grid-cols-2 gap-8 mb-12">
               {[
                 {
                   icon: <Zap className="h-6 w-6" />,
@@ -159,11 +159,6 @@ const AboutSection = () => {
                   icon: <Shield className="h-6 w-6" />,
                   title: "Ethical Research",
                   description: "All our recommendations are based on ethically sourced and validated data."
-                },
-                {
-                  icon: <Users className="h-6 w-6" />,
-                  title: "Expert Collaboration",
-                  description: "Our platform is developed in partnership with leading microbiologists."
                 }
               ].map((item, index) => (
                 <motion.div 

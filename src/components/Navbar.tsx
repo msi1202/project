@@ -64,13 +64,15 @@ const Navbar = () => {
             <NavLink to="/" icon={<Home size={18} />} text="Home" active={location.pathname === '/'} />
             <NavLink to="/about" icon={<Info size={18} />} text="About" active={location.pathname === '/about'} />
             <NavLink to="/faqs" icon={<HelpCircle size={18} />} text="FAQs" active={location.pathname === '/faqs'} />
-            <motion.button 
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="btn-primary"
-            >
-              Get Started
-            </motion.button>
+            <Link to="/dashboard">
+              <motion.button 
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="btn-primary"
+              >
+                Get Started
+              </motion.button>
+            </Link>
           </div>
           
           {/* Mobile menu button */}
@@ -99,9 +101,11 @@ const Navbar = () => {
             <MobileNavLink to="/about" icon={<Info size={18} />} text="About" active={location.pathname === '/about'} />
             <MobileNavLink to="/faqs" icon={<HelpCircle size={18} />} text="FAQs" active={location.pathname === '/faqs'} />
             <div className="mt-4 px-3">
-              <button className="w-full btn-primary">
-                Get Started
-              </button>
+              <Link to="/dashboard" className="block w-full">
+                <button className="w-full btn-primary">
+                  Get Started
+                </button>
+              </Link>
             </div>
           </div>
         </motion.div>
