@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Beaker, Home, Info, HelpCircle, Menu, X } from 'lucide-react';
+import { Beaker, Menu, X } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
@@ -38,7 +38,7 @@ const Navbar = () => {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
+        <div className="flex justify-between h-20">
           <div className="flex items-center">
             <Link to="/" className="flex items-center group">
               <div className="relative">
@@ -47,10 +47,10 @@ const Navbar = () => {
                   animate={{ scale: [1, 1.2, 1] }}
                   transition={{ duration: 2, repeat: Infinity }}
                 />
-                <Beaker className="h-8 w-8 text-primary-600 relative z-10" />
+                <Beaker className="h-10 w-10 text-primary-600 relative z-10" />
               </div>
               <motion.span 
-                className="ml-2 text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-secondary-600"
+                className="ml-3 text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-secondary-600"
                 whileHover={{ scale: 1.05 }}
                 transition={{ type: "spring", stiffness: 400, damping: 10 }}
               >
@@ -60,15 +60,12 @@ const Navbar = () => {
           </div>
           
           {/* Desktop menu */}
-          <div className="hidden md:flex items-center space-x-8">
-            <NavLink to="/" icon={<Home size={18} />} text="Home" active={location.pathname === '/'} />
-            <NavLink to="/about" icon={<Info size={18} />} text="About" active={location.pathname === '/about'} />
-            <NavLink to="/faqs" icon={<HelpCircle size={18} />} text="FAQs" active={location.pathname === '/faqs'} />
+          <div className="hidden md:flex items-center">
             <Link to="/dashboard">
               <motion.button 
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="btn-primary"
+                className="btn-primary text-lg px-8 py-3"
               >
                 Get Started
               </motion.button>
@@ -81,7 +78,7 @@ const Navbar = () => {
               onClick={toggleMenu}
               className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-500"
             >
-              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {isMenuOpen ? <X className="h-8 w-8" /> : <Menu className="h-8 w-8" />}
             </button>
           </div>
         </div>
@@ -97,12 +94,9 @@ const Navbar = () => {
           transition={{ duration: 0.3 }}
         >
           <div className="pt-2 pb-3 space-y-1 px-2">
-            <MobileNavLink to="/" icon={<Home size={18} />} text="Home" active={location.pathname === '/'} />
-            <MobileNavLink to="/about" icon={<Info size={18} />} text="About" active={location.pathname === '/about'} />
-            <MobileNavLink to="/faqs" icon={<HelpCircle size={18} />} text="FAQs" active={location.pathname === '/faqs'} />
             <div className="mt-4 px-3">
               <Link to="/dashboard" className="block w-full">
-                <button className="w-full btn-primary">
+                <button className="w-full btn-primary text-lg py-3">
                   Get Started
                 </button>
               </Link>
@@ -113,51 +107,5 @@ const Navbar = () => {
     </motion.nav>
   );
 };
-
-const NavLink = ({ icon, text, active = false, to }) => (
-  <Link
-    to={to}
-    className={`flex items-center text-sm font-medium transition-all duration-300 ${
-      active 
-        ? 'text-primary-600 font-semibold' 
-        : 'text-gray-600 hover:text-primary-600'
-    }`}
-  >
-    <motion.span 
-      className="mr-1"
-      whileHover={{ rotate: [0, -10, 10, -10, 0] }}
-      transition={{ duration: 0.5 }}
-    >
-      {icon}
-    </motion.span>
-    {text}
-    {active && (
-      <motion.div 
-        className="absolute bottom-0 left-0 h-0.5 w-full bg-primary-500"
-        layoutId="navbar-underline"
-      />
-    )}
-  </Link>
-);
-
-const MobileNavLink = ({ icon, text, active = false, to }) => (
-  <Link
-    to={to}
-    className={`flex items-center px-3 py-2 rounded-md text-base font-medium ${
-      active
-        ? 'bg-primary-50 text-primary-600'
-        : 'text-gray-600 hover:bg-primary-50 hover:text-primary-600'
-    } transition-all duration-300`}
-  >
-    <motion.span 
-      className="mr-2"
-      whileHover={{ rotate: 360 }}
-      transition={{ duration: 0.5 }}
-    >
-      {icon}
-    </motion.span>
-    {text}
-  </Link>
-);
 
 export default Navbar;

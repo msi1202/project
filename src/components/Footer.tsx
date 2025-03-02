@@ -1,7 +1,18 @@
 import React from 'react';
-import { Beaker, Mail, Phone, MapPin, Github, Twitter, Linkedin, ArrowUpRight } from 'lucide-react';
+import { Beaker, Mail, Github, Linkedin, ArrowUpRight, Phone } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+
+interface SocialLinkProps {
+  href: string;
+  icon: React.ReactNode;
+  label: string;
+}
+
+interface FooterLinkProps {
+  to: string;
+  text: string;
+}
 
 const Footer = () => {
   return (
@@ -12,9 +23,10 @@ const Footer = () => {
         <div className="absolute bottom-20 right-10 w-80 h-80 bg-secondary-500 rounded-full filter blur-3xl"></div>
       </div>
       
-      <div className="relative z-10 max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
-        <div className="xl:grid xl:grid-cols-3 xl:gap-8">
-          <div className="space-y-8 xl:col-span-1">
+      <div className="relative z-10 max-w-7xl mx-auto py-8 px-4 sm:px-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Logo and Social Links */}
+          <div className="flex flex-col items-center md:items-start">
             <motion.div 
               className="flex items-center"
               whileHover={{ scale: 1.05 }}
@@ -26,79 +38,45 @@ const Footer = () => {
               </div>
               <span className="ml-2 text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-400 to-secondary-400">BioSim</span>
             </motion.div>
-            <p className="text-gray-300 text-base max-w-md">
-              Discover innovative antibiotic combinations through advanced simulation technology.
-              Revolutionizing how researchers combat bacterial resistance.
-            </p>
-            <div className="flex space-x-6">
-              <SocialLink href="#" icon={<Twitter className="h-6 w-6" />} label="Twitter" />
-              <SocialLink href="#" icon={<Github className="h-6 w-6" />} label="GitHub" />
-              <SocialLink href="#" icon={<Linkedin className="h-6 w-6" />} label="LinkedIn" />
+            <div className="flex space-x-6 mt-4">
+              <SocialLink href="#" icon={<Github className="h-5 w-5" />} label="GitHub" />
+              <SocialLink href="#" icon={<Linkedin className="h-5 w-5" />} label="LinkedIn" />
             </div>
           </div>
-          <div className="mt-12 grid grid-cols-2 gap-8 xl:mt-0 xl:col-span-2">
-            <div className="md:grid md:grid-cols-2 md:gap-8">
-              <div>
-                <h3 className="text-sm font-semibold text-gray-300 tracking-wider uppercase">Navigation</h3>
-                <ul className="mt-4 space-y-4">
-                  <FooterLink to="/" text="Home" />
-                  <FooterLink to="/about" text="About" />
-                  <FooterLink to="/faqs" text="FAQs" />
-                </ul>
-              </div>
-              <div className="mt-12 md:mt-0">
-                <h3 className="text-sm font-semibold text-gray-300 tracking-wider uppercase">Resources</h3>
-                <ul className="mt-4 space-y-4">
-                  <FooterLink to="#" text="Documentation" />
-                  <FooterLink to="#" text="Research Papers" />
-                  <FooterLink to="#" text="Case Studies" />
-                  <FooterLink to="#" text="API" />
-                </ul>
-              </div>
-            </div>
-            <div className="md:grid md:grid-cols-1 md:gap-8">
-              <div>
-                <h3 className="text-sm font-semibold text-gray-300 tracking-wider uppercase">Contact Us</h3>
-                <ul className="mt-4 space-y-4">
-                  <li className="flex items-center group">
-                    <Mail className="h-5 w-5 text-primary-400 mr-2 group-hover:text-primary-300 transition-colors" />
-                    <a href="mailto:info@biosim.com" className="text-base text-gray-400 hover:text-white transition-colors">
-                      info@biosim.com
-                    </a>
-                  </li>
-                  <li className="flex items-center group">
-                    <Phone className="h-5 w-5 text-primary-400 mr-2 group-hover:text-primary-300 transition-colors" />
-                    <a href="tel:+1234567890" className="text-base text-gray-400 hover:text-white transition-colors">
-                      +1 (234) 567-890
-                    </a>
-                  </li>
-                  <li className="flex items-start group">
-                    <MapPin className="h-5 w-5 text-primary-400 mr-2 mt-1 group-hover:text-primary-300 transition-colors" />
-                    <span className="text-base text-gray-400">
-                      123 Science Way, Research Park, CA 94103, USA
-                    </span>
-                  </li>
-                </ul>
-              </div>
+
+          {/* Quick Links */}
+          <div className="text-center md:text-left">
+            <h3 className="text-sm font-semibold text-gray-300 tracking-wider uppercase mb-4">Quick Links</h3>
+            <ul className="space-y-2">
+              <FooterLink to="/" text="Home" />
+              <FooterLink to="/dashboard" text="Dashboard" />
+            </ul>
+          </div>
+
+          {/* Contact */}
+          <div className="text-center md:text-left">
+            <h3 className="text-sm font-semibold text-gray-300 tracking-wider uppercase mb-4">Contact</h3>
+            <div className="space-y-2">
+              <a href="mailto:info@biosim.com" className="text-gray-400 hover:text-white transition-colors flex items-center justify-center md:justify-start">
+                <Mail className="h-4 w-4 mr-2" />
+                info@biosim.com
+              </a>
+              <a href="tel:+1234567890" className="text-gray-400 hover:text-white transition-colors flex items-center justify-center md:justify-start">
+                <Phone className="h-4 w-4 mr-2" />
+                +1 (234) 567-890
+              </a>
             </div>
           </div>
         </div>
         
-        <div className="mt-12 pt-8 border-t border-gray-700">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-base text-gray-400">
+        <div className="mt-8 pt-4 border-t border-gray-800">
+          <div className="flex flex-col md:flex-row justify-between items-center text-sm">
+            <p className="text-gray-400">
               &copy; 2025 BioSim. All rights reserved.
             </p>
-            <div className="mt-4 md:mt-0 flex space-x-6">
-              <a href="#" className="text-sm text-gray-400 hover:text-white transition-colors">
-                Privacy Policy
-              </a>
-              <a href="#" className="text-sm text-gray-400 hover:text-white transition-colors">
-                Terms of Service
-              </a>
-              <a href="#" className="text-sm text-gray-400 hover:text-white transition-colors">
-                Cookie Policy
-              </a>
+            <div className="mt-2 md:mt-0 flex space-x-4">
+              <a href="#" className="text-gray-400 hover:text-white transition-colors">Privacy</a>
+              <a href="#" className="text-gray-400 hover:text-white transition-colors">Terms</a>
             </div>
           </div>
         </div>
@@ -107,7 +85,7 @@ const Footer = () => {
   );
 };
 
-const SocialLink = ({ href, icon, label }) => (
+const SocialLink = ({ href, icon, label }: SocialLinkProps) => (
   <motion.a 
     href={href} 
     className="text-gray-400 hover:text-white transition-colors"
@@ -119,11 +97,11 @@ const SocialLink = ({ href, icon, label }) => (
   </motion.a>
 );
 
-const FooterLink = ({ to, text }) => (
+const FooterLink = ({ to, text }: FooterLinkProps) => (
   <li>
     <Link 
       to={to} 
-      className="text-base text-gray-400 hover:text-white transition-colors flex items-center group"
+      className="text-base text-gray-400 hover:text-white transition-colors flex items-center justify-center md:justify-start group"
     >
       {text}
       <ArrowUpRight 
@@ -134,4 +112,4 @@ const FooterLink = ({ to, text }) => (
   </li>
 );
 
-export default Footer
+export default Footer;
