@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Beaker } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Beaker, X } from 'lucide-react';
 
 const Dashboard = () => {
   const [prompt, setPrompt] = useState('');
@@ -142,57 +142,29 @@ const Dashboard = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.8 + index * 0.1 }}
-                onClick={() => setExpandedBlock(expandedBlock === index ? null : index)}
-                className={`bg-white rounded-xl shadow-md hover:shadow-lg overflow-hidden cursor-pointer ${
-                  expandedBlock === index ? 'md:col-span-2 mx-auto max-w-5xl' : ''
-                }`}
-                style={{
-                  height: expandedBlock === index ? '600px' : '250px',
-                  transition: 'all 0.3s ease-in-out'
-                }}
+                onClick={() => setExpandedBlock(index)}
+                className="bg-white rounded-xl shadow-md hover:shadow-lg overflow-hidden cursor-pointer h-[250px]"
               >
                 <div className="flex h-full">
-                  <div 
-                    className="relative"
-                    style={{
-                      width: expandedBlock === index ? '55%' : '50%',
-                      transition: 'all 0.3s ease-in-out'
-                    }}
-                  >
+                  <div className="w-1/2">
                     <img
                       src={block.image}
                       alt={block.title}
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <div 
-                    className="flex flex-col p-6"
-                    style={{
-                      width: expandedBlock === index ? '45%' : '50%',
-                      transition: 'all 0.3s ease-in-out'
-                    }}
-                  >
+                  <div className="w-1/2 p-6 flex flex-col">
                     <h3 className="text-lg font-semibold text-gray-900 mb-3 bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-secondary-600">
                       {block.title}
                     </h3>
-                    <div 
-                      className="text-gray-600 overflow-hidden flex-1"
-                      style={{
-                        maxHeight: expandedBlock === index ? '500px' : '72px',
-                        transition: 'max-height 0.3s ease-in-out'
-                      }}
-                    >
-                      {expandedBlock === index ? (
-                        <p className="pr-4 pb-6">{block.description}</p>
-                      ) : (
-                        <div className="pr-4">
-                          <p className="line-clamp-2">{block.description}</p>
-                          <div className="flex items-center mt-1">
-                            <span className="text-gray-600 text-sm">...</span>
-                            <span className="text-primary-600 font-medium text-sm ml-1">Click to read more</span>
-                          </div>
+                    <div className="text-gray-600 overflow-hidden flex-1">
+                      <div className="pr-4">
+                        <p className="line-clamp-2">{block.description}</p>
+                        <div className="flex items-center mt-1">
+                          <span className="text-gray-600 text-sm">...</span>
+                          <span className="text-primary-600 font-medium text-sm ml-1">Click to read more</span>
                         </div>
-                      )}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -200,6 +172,55 @@ const Dashboard = () => {
             ))}
           </div>
         </div>
+
+        {/* Popup Overlay */}
+        <AnimatePresence>
+          {expandedBlock !== null && (
+            <>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
+                onClick={() => setExpandedBlock(null)}
+              >
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ type: "spring", duration: 0.5 }}
+                  className="relative w-full max-w-4xl bg-white rounded-xl shadow-2xl overflow-hidden"
+                  style={{ height: '600px' }}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <button
+                    onClick={() => setExpandedBlock(null)}
+                    className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 transition-colors z-10 bg-white/80 backdrop-blur-sm"
+                  >
+                    <X className="w-6 h-6 text-gray-600" />
+                  </button>
+                  <div className="flex h-full">
+                    <div className="w-[55%] h-full">
+                      <img
+                        src={infoBlocks[expandedBlock].image}
+                        alt={infoBlocks[expandedBlock].title}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="w-[45%] p-8 overflow-y-auto">
+                      <h2 className="text-2xl font-semibold text-gray-900 mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-secondary-600">
+                        {infoBlocks[expandedBlock].title}
+                      </h2>
+                      <p className="text-gray-600 text-lg leading-relaxed">
+                        {infoBlocks[expandedBlock].description}
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+              </motion.div>
+            </>
+          )}
+        </AnimatePresence>
       </motion.div>
     </div>
   );
