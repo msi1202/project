@@ -1,8 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Zap, Shield, Microscope } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const HeroSection = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="relative overflow-hidden">
       {/* Background elements */}
@@ -61,6 +64,7 @@ const HeroSection = () => {
                 className="btn-primary group"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                onClick={() => navigate('/dashboard')}
               >
                 Start Simulation
                 <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={18} />
@@ -72,36 +76,6 @@ const HeroSection = () => {
               >
                 Learn More
               </motion.button>
-            </motion.div>
-            
-            <motion.div 
-              className="mt-12 grid grid-cols-2 gap-x-4 gap-y-8"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.9, duration: 0.8 }}
-            >
-              <div className="flex items-center">
-                <div className="flex-shrink-0">
-                  <div className="flex items-center justify-center h-12 w-12 rounded-md bg-primary-100 text-primary-600">
-                    <Microscope className="h-6 w-6" />
-                  </div>
-                </div>
-                <div className="ml-4">
-                  <h3 className="text-lg font-medium text-gray-900">Advanced AI</h3>
-                  <p className="mt-1 text-sm text-gray-500">Powered by cutting-edge machine learning algorithms</p>
-                </div>
-              </div>
-              <div className="flex items-center">
-                <div className="flex-shrink-0">
-                  <div className="flex items-center justify-center h-12 w-12 rounded-md bg-primary-100 text-primary-600">
-                    <Shield className="h-6 w-6" />
-                  </div>
-                </div>
-                <div className="ml-4">
-                  <h3 className="text-lg font-medium text-gray-900">Secure Data</h3>
-                  <p className="mt-1 text-sm text-gray-500">Your research data remains private and protected</p>
-                </div>
-              </div>
             </motion.div>
           </motion.div>
           
@@ -127,28 +101,6 @@ const HeroSection = () => {
                   src="https://images.unsplash.com/photo-1581093588401-fbb62a02f120?ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80"
                   alt="Scientific laboratory with advanced equipment"
                 />
-              </motion.div>
-              
-              {/* Floating card */}
-              <motion.div 
-                className="absolute -bottom-6 -left-6 glass-card p-4 max-w-xs"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.2, duration: 0.8 }}
-                whileHover={{ y: -5 }}
-              >
-                <div className="flex items-center">
-                  <div className="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center">
-                    <Zap className="h-5 w-5 text-green-600" />
-                  </div>
-                  <div className="ml-3">
-                    <h3 className="text-sm font-medium text-gray-900">Success Rate</h3>
-                    <div className="mt-1 flex items-center">
-                      <span className="text-2xl font-bold text-green-600">94%</span>
-                      <span className="ml-2 text-sm text-gray-500">accuracy in predictions</span>
-                    </div>
-                  </div>
-                </div>
               </motion.div>
             </div>
           </motion.div>
@@ -187,7 +139,7 @@ const HeroSection = () => {
           </div>
 
           <div className="mt-16">
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
               {[
                 {
                   title: "AI-Powered Analysis",
@@ -200,12 +152,6 @@ const HeroSection = () => {
                   description: "Test potential treatments against virtual bacterial models before lab testing.",
                   icon: <Zap className="h-6 w-6" />,
                   delay: 0.2
-                },
-                {
-                  title: "Research Collaboration",
-                  description: "Connect with researchers worldwide to share findings and accelerate discovery.",
-                  icon: <Shield className="h-6 w-6" />,
-                  delay: 0.4
                 }
               ].map((feature, index) => (
                 <motion.div 
